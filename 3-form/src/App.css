@@ -1,7 +1,67 @@
-#root {
-  max-width: 1280px;
+.form-container {
+  width: 500px;
+  height: auto;
   margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
-  background-color: antiquewhite;
+}
+
+.form {
+  width: 500px;
+  margin-top: 20px;
+  padding: 20px;
+  border: 2px solid #000;
+}
+
+.header-area {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 30px;
+  margin-bottom: 10px;
+}
+
+.title {
+  display: inline;
+  font-size: 1.2rem;
+}
+
+.remove-button {
+  width: 30px;
+  height: 30px;
+  border: 2px solid #000;
+  background-color: #fff;
+  font-weight: 600;
+}
+
+.input-area {
+  display: flex;
+  flex-direction: column;
+}
+
+.input-area input {
+  padding: 10px;
+}
+
+.error {
+  border: 1px solid red;
+  background-color: rgba(251, 173, 186, 0.263);
+}
+
+.error-area {
+  height: 5px;
+  margin-bottom: 10px;
+  font-size: 0.8rem;
+  color: red;
+}
+
+.button-area {
+  display: flex;
+  margin-top: 20px;
+}
+
+.button {
+  width: 90px;
+  height: 40px;
+  margin-right: 10px;
+  border: 2px solid #000;
+  background-color: #fff;
 }
