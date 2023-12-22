@@ -32,29 +32,57 @@ function App() {
   useEffect(() => {
     const subscription = watch((value) => {
       const { users } = value;
-
-      if (Array.isArray(users)) {
-        const obj = users.reduce((obj, user, index) => {
-          if (!user?.name) {
-            return obj;
-          }
-          if (obj?.[user.name]) {
-            setError(`users.${index}.name` as const, {
+      if (!Array.isArray(users)) {
+        return;
+      }
+      users.reduce((obj, user, index) => {
+        if (!user?.name) {
+          return obj;
+        }
+        const nameObj = obj?.[user.name];
+        const value = (nameObj?.value ?? 0) + 1;
+        const indexArr = nameObj?.indexArr
+          ? [...nameObj.indexArr, index]
+          : [index];
+        if (value > 1) {
+          indexArr.forEach((i) => {
+            setError(`users.${i}.name` as const, {
               type: "manual",
               message: "이미 사용 중인 이름입니다.",
             });
-          }
-          return { ...obj, [user.name]: (obj[user.name] || 0) + 1 };
-        }, {} as Record<string, number>);
-        console.log({ obj });
-      }
+          });
+        }
+        return {
+          ...obj,
+          [user.name]: {
+            value,
+            indexArr,
+          },
+        };
+      }, {} as Record<string, { value: number; indexArr: number[] }>);
     });
     return () => subscription.unsubscribe();
   }, [watch, setError]);
 
   const onSubmit: SubmitHandler<FormValues> = (data) => {
-    console.log(data.users);
-    reset();
+    const result = document.querySelector(".result");
+    if (result) {
+      const formattedData = data.users.map((user) => ({
+        name: user.name,
+        password:
+          user.password.length > 3
+            ? user.password.substring(0, 3) +
+              "*".repeat(user.password.length - 3)
+            : "***",
+      }));
+
+      formattedData.forEach((user) => {
+        const userElement = document.createElement("div");
+        userElement.innerHTML = `<p class="name">name: ${user.name}</p><p class="password">password: ${user.password}</p>`;
+        result.appendChild(userElement);
+      });
+      reset();
+    }
   };
 
   return (
@@ -104,7 +132,7 @@ function App() {
                   },
                 })}
                 type="password"
-                className={`${errors.users?.[index]?.name ? "error" : ""}`}
+                className={`${errors.users?.[index]?.password ? "error" : ""}`}
               />
               <span role="alert" className="error-area">
                 {errors.users?.[index]?.password?.message || ""}
@@ -125,6 +153,10 @@ function App() {
           </button>
         </div>
       </form>
+      <div className="result">
+        <p className="name"></p>
+        <p className="password"></p>
+      </div>
     </>
   );
 }
