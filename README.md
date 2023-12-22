@@ -59,9 +59,9 @@ npm install -g pnpm
 pnpm run dev
 ```
 
-| ![1](https://github.com/havenothorn/schoolbell-e/assets/78931643/0b445a88-d5e1-49e1-a9e3-18464806249e) | ![2](https://github.com/havenothorn/schoolbell-e/assets/78931643/0ef7dbf0-3b6d-4ce6-be45-367b8529d449) |
+| ![1](https://github.com/havenothorn/schoolbell-e/assets/78931643/0ef7dbf0-3b6d-4ce6-be45-367b8529d449) | ![2](https://github.com/havenothorn/schoolbell-e/assets/78931643/c52c88ba-76fc-4c20-8578-e649717cb23a) |
 | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| ![3](https://github.com/havenothorn/schoolbell-e/assets/78931643/c52c88ba-76fc-4c20-8578-e649717cb23a) | ![4](https://github.com/havenothorn/schoolbell-e/assets/78931643/0749daaf-0ca7-4084-b77f-db531d9ad4d3) |
+| ![3](https://github.com/havenothorn/schoolbell-e/assets/78931643/0749daaf-0ca7-4084-b77f-db531d9ad4d3) | ![4](https://github.com/havenothorn/schoolbell-e/assets/78931643/0fdfa379-cfef-4884-b02e-00a817e853fd) |
 
 
 ### Tree
