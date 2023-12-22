@@ -81,6 +81,7 @@ function App() {
         userElement.innerHTML = `<p class="name">name: ${user.name}</p><p class="password">password: ${user.password}</p>`;
         result.appendChild(userElement);
       });
+      result.classList.remove("blind");
       reset();
     }
   };
@@ -153,7 +154,7 @@ function App() {
           </button>
         </div>
       </form>
-      <div className="result">
+      <div className="result blind">
         <p className="name"></p>
         <p className="password"></p>
       </div>

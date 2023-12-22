@@ -72,6 +72,10 @@
   background-color: #ddd;
 }
 
+.blind {
+  display: none;
+}
+
 .name {
   margin: 0;
 }
