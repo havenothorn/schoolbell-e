@@ -38,34 +38,22 @@ function App() {
   useEffect(() => {
     const subscription = watch((value) => {
       const { users } = value;
-      if (!Array.isArray(users)) {
-        return;
-      }
-      users.reduce((obj, user, index) => {
-        if (!user?.name) {
-          return obj;
-        }
-        const nameObj = obj?.[user.name];
-        const value = (nameObj?.value ?? 0) + 1;
-        const indexArr = nameObj?.indexArr
-          ? [...nameObj.indexArr, index]
-          : [index];
-        if (value > 1) {
-          indexArr.forEach((i) => {
-            setError(`users.${i}.name` as const, {
+
+      if (Array.isArray(users)) {
+        const obj = users.reduce((obj, user, index) => {
+          if (!user?.name) {
+            return obj;
+          }
+          if (obj?.[user.name]) {
+            setError(`users.${index}.name` as const, {
               type: "manual",
               message: "이미 사용 중인 이름입니다.",
             });
-          });
-        }
-        return {
-          ...obj,
-          [user.name]: {
-            value,
-            indexArr,
-          },
-        };
-      }, {} as Record<string, { value: number; indexArr: number[] }>);
+          }
+          return { ...obj, [user.name]: (obj[user.name] || 0) + 1 };
+        }, {} as Record<string, number>);
+        console.log({ obj });
+      }
     });
     return () => subscription.unsubscribe();
   }, [watch, setError]);
