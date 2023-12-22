@@ -9,6 +9,12 @@ interface FormValues {
   }[];
 }
 
+type FormErrorKey =
+  | "users"
+  | `users.${number}`
+  | `users.${number}.name`
+  | `users.${number}.password`;
+
 function App() {
   const {
     register,
@@ -67,6 +73,8 @@ function App() {
   const onSubmit: SubmitHandler<FormValues> = (data) => {
     const result = document.querySelector(".result");
     if (result) {
+      result.innerHTML = "";
+
       const formattedData = data.users.map((user) => ({
         name: user.name,
         password:
@@ -82,7 +90,20 @@ function App() {
         result.appendChild(userElement);
       });
       result.classList.remove("blind");
-      reset();
+    }
+
+    reset();
+    Object.keys(errors).forEach((key) => {
+      const errorKey = key as FormErrorKey;
+      setError(errorKey, {});
+    });
+
+    // 에러가 있을 경우 Confirm 버튼 비활성화
+    if (Object.keys(errors).length > 0) {
+      const confirmButton = document.querySelector(".button[type='submit']");
+      if (confirmButton) {
+        confirmButton.setAttribute("disabled", "true");
+      }
     }
   };
 
@@ -149,7 +170,11 @@ function App() {
           >
             Add User
           </button>
-          <button className="button" type="submit">
+          <button
+            className="button"
+            type="submit"
+            disabled={Object.keys(errors).length > 0}
+          >
             Confirm
           </button>
         </div>
